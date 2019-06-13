@@ -8,7 +8,7 @@ public class Agents
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long menuid;
+	private long agentid;
 
 	@Column(nullable = false)
 	private String agentName;
@@ -33,7 +33,7 @@ public class Agents
 
 	public long getMenuid()
 	{
-		return menuid;
+		return agentid;
 	}
 
 	public String getAgentName()
