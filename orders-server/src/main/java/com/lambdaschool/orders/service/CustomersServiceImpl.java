@@ -3,7 +3,6 @@ package com.lambdaschool.orders.service;
 import com.lambdaschool.orders.model.Customers;
 import com.lambdaschool.orders.model.Orders;
 import com.lambdaschool.orders.repositories.CustomersRepository;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +31,12 @@ public class CustomersServiceImpl implements CustomersService
 	}
 
 	@Override
-	public Customers findCustomerByName(String name)
+	public Customers findCustomerByName(String custName)
 	{
-		Customers customer = custRepos.findByName(name);
+		Customers customer = custRepos.findByCustName(custName);
 		if (customer == null)
 		{
-			throw new EntityNotFoundException("Customer " + name + " not found");
+			throw new EntityNotFoundException("Customer " + custName + " not found");
 		}
 		return customer;
 	}
