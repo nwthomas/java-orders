@@ -3,13 +3,16 @@ package com.lambdaschool.orders.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "customers")
-public class Customers
+@Table(name = "customerTable")
+public class Customer
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(nullable = false)
 	private long customerid;
 
 	@Column(nullable = false)
@@ -25,16 +28,24 @@ public class Customers
 	private double outstandingAmt;
 	private String phone;
 
-	@OneToMany
-	@JoinColumn(name = "agentid", nullable = false)
-	@JsonIgnoreProperties("agent")
-	private Agents agentCode;
+	// DONE
+	// Connects to Agent which collects this in a List
+	@ManyToOne
+	@JoinColumn(name = "customers", nullable = false)
+	private Agent agentCode;
 
-	public Customers()
+
+	// Collects all customers associated with the agent together in a List
+	@OneToMany(mappedBy = "custCode", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties("custCode")
+	private List<Order> customerOrders = new ArrayList<>();
+
+
+	public Customer()
 	{
 	}
 
-	public Customers(String custName, String custCity, String workingArea, String custCountry, String grade, double openingAmt, double receiveAmt, double paymentAmt, double outstandingAmt, String phone, Agents agentCode)
+	public Customer(String custName, String custCity, String workingArea, String custCountry, String grade, double openingAmt, double receiveAmt, double paymentAmt, double outstandingAmt, String phone, Agent agentCode)
 	{
 		this.custName = custName;
 		this.custCity = custCity;
@@ -154,13 +165,23 @@ public class Customers
 		this.phone = phone;
 	}
 
-	public Agents getAgentCode()
+	public Agent getAgentCode()
 	{
 		return agentCode;
 	}
 
-	public void setAgentCode(Agents agentCode)
+	public void setAgentCode(Agent agentCode)
 	{
 		this.agentCode = agentCode;
+	}
+
+	public List<Order> getOrders()
+	{
+		return customerOrders;
+	}
+
+	public void setOrders(List<Order> orders)
+	{
+		this.customerOrders = orders;
 	}
 }
