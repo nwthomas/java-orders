@@ -1,12 +1,10 @@
 package com.lambdaschool.orders.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "orderTable")
-public class Order
+public class Orders
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,21 +17,21 @@ public class Order
 	// Connects to Customer and uses FK to associate
 	@ManyToOne
 	@JoinColumn(name = "customerOrders", nullable = false)
-	private Customer custCode;
+	private Customers custCode;
 
 	// DONE
 	// Connects to Agent and uses FK to associate
 	@ManyToOne
 	@JoinColumn(name = "agentOrders", nullable = false)
-	private Agent agentCode;
+	private Agents agentCode;
 
 	private String ordDescription;
 
-	public Order()
+	public Orders()
 	{
 	}
 
-	public Order(double orderAmt, double advanceAmt, Customer custCode, Agent agentCode, String ordDescription)
+	public Orders(double orderAmt, double advanceAmt, Customers custCode, Agents agentCode, String ordDescription)
 	{
 		this.orderAmt = orderAmt;
 		this.advanceAmt = advanceAmt;
@@ -67,22 +65,22 @@ public class Order
 		this.advanceAmt = advanceAmt;
 	}
 
-	public Customer getCustCode()
+	public Customers getCustCode()
 	{
 		return custCode;
 	}
 
-	public void setCustCode(Customer custCode)
+	public void setCustCode(Customers custCode)
 	{
 		this.custCode = custCode;
 	}
 
-	public Agent getAgentCode()
+	public Agents getAgentCode()
 	{
 		return agentCode;
 	}
 
-	public void setAgentCode(Agent agentCode)
+	public void setAgentCode(Agents agentCode)
 	{
 		this.agentCode = agentCode;
 	}

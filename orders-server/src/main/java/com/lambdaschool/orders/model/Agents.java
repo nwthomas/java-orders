@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "agentTable")
-public class Agent
+public class Agents
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,19 +24,19 @@ public class Agent
 	// Connects to Customer and collects all associated customers via FK into List
 	@OneToMany(mappedBy = "agentCode", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("agentCode")
-	private List<Customer> customers = new ArrayList<>();
+	private List<Customers> customers = new ArrayList<>();
 
 	// DONE
 	// Connects to Orders and collects all associated orders via FK into List
 	@OneToMany(mappedBy = "agentCode", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties("agentCode")
-	private List<Order> agentOrders = new ArrayList<>();
+	private List<Orders> agentOrders = new ArrayList<>();
 
-	public Agent()
+	public Agents()
 	{
 	}
 
-	public Agent(String agentName, String workingArea, double commission, String phone, String country)
+	public Agents(String agentName, String workingArea, double commission, String phone, String country)
 	{
 		this.agentName = agentName;
 		this.workingArea = workingArea;
@@ -100,22 +100,22 @@ public class Agent
 		this.country = country;
 	}
 
-	public List<Customer> getCustomers()
+	public List<Customers> getCustomers()
 	{
 		return customers;
 	}
 
-	public void setCustomers(List<Customer> customers)
+	public void setCustomers(List<Customers> customers)
 	{
 		this.customers = customers;
 	}
 
-	public List<Order> getOrders()
+	public List<Orders> getOrders()
 	{
 		return agentOrders;
 	}
 
-	public void setOrders(List<Order> orders)
+	public void setOrders(List<Orders> orders)
 	{
 		this.agentOrders = orders;
 	}
