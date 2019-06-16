@@ -33,7 +33,7 @@ public class CustomersServiceImpl implements CustomersService
 	@Override
 	public Customers findCustomerByName(String custName)
 	{
-		Customers customer = custRepos.findByCustName(custName);
+		Customers customer = custRepos.findByCustname(custName);
 		if (customer == null)
 		{
 			throw new EntityNotFoundException("Customer " + custName + " not found");
@@ -59,21 +59,21 @@ public class CustomersServiceImpl implements CustomersService
 	public Customers save(Customers customer)
 	{
 		Customers newCustomer = new Customers();
-		newCustomer.setCustName(customer.getCustName());
-		newCustomer.setWorkingArea(customer.getWorkingArea());
-		newCustomer.setCustCity(customer.getCustCity());
-		newCustomer.setCustCountry(customer.getCustCountry());
+		newCustomer.setCustname(customer.getCustname());
+		newCustomer.setWorkingarea(customer.getWorkingarea());
+		newCustomer.setCustcity(customer.getCustcity());
+		newCustomer.setCustcountry(customer.getCustcountry());
 		newCustomer.setGrade(customer.getGrade());
-		newCustomer.setOpeningAmt(customer.getOpeningAmt());
-		newCustomer.setReceiveAmt(customer.getReceiveAmt());
-		newCustomer.setPaymentAmt(customer.getPaymentAmt());
-		newCustomer.setOutstandingAmt(customer.getOutstandingAmt());
+		newCustomer.setOpeningamt(customer.getOpeningamt());
+		newCustomer.setReceiveamt(customer.getReceiveamt());
+		newCustomer.setPaymentamt(customer.getPaymentamt());
+		newCustomer.setOutstandingamt(customer.getOutstandingamt());
 		newCustomer.setPhone(customer.getPhone());
-		newCustomer.setAgentCode(customer.getAgentCode());
+		newCustomer.setAgentcode(customer.getAgentcode());
 
-		for (Orders o : customer.getOrders())
+		for (Orders o : customer.getCustomerorders())
 		{
-			newCustomer.getOrders().add(new Orders(o.getOrderAmt(), o.getAdvanceAmt(), o.getCustCode(), o.getAgentCode(), o.getOrdDescription()));
+			newCustomer.getCustomerorders().add(new Orders(o.getOrderamt(), o.getAdvanceamt(), o.getCustcode(), o.getAgentcode(), o.getOrddescription()));
 		}
 
 		return custRepos.save(newCustomer);
@@ -87,24 +87,24 @@ public class CustomersServiceImpl implements CustomersService
 		Customers currentRestaurant = custRepos.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
 
-		if (customer.getCustName() != null)
+		if (customer.getCustname() != null)
 		{
-			currentRestaurant.setCustName(customer.getCustName());
+			currentRestaurant.setCustname(customer.getCustname());
 		}
 
-		if (customer.getWorkingArea() != null)
+		if (customer.getWorkingarea() != null)
 		{
-			currentRestaurant.setWorkingArea(customer.getWorkingArea());
+			currentRestaurant.setWorkingarea(customer.getWorkingarea());
 		}
 
-		if (customer.getCustCity() != null)
+		if (customer.getCustcity() != null)
 		{
-			currentRestaurant.setCustCity(customer.getCustCity());
+			currentRestaurant.setCustcity(customer.getCustcity());
 		}
 
-		if (customer.getCustCountry() != null)
+		if (customer.getCustcountry() != null)
 		{
-			currentRestaurant.setCustCountry(customer.getCustCountry());
+			currentRestaurant.setCustcountry(customer.getCustcountry());
 		}
 
 		if (customer.getGrade() != null)
@@ -112,24 +112,24 @@ public class CustomersServiceImpl implements CustomersService
 			currentRestaurant.setGrade(customer.getGrade());
 		}
 
-		if (customer.getOpeningAmt() > 0)
+		if (customer.getOpeningamt() > 0)
 		{
-			currentRestaurant.setOpeningAmt(customer.getOpeningAmt());
+			currentRestaurant.setOpeningamt(customer.getOpeningamt());
 		}
 
-		if (customer.getReceiveAmt() > 0)
+		if (customer.getReceiveamt() > 0)
 		{
-			currentRestaurant.setReceiveAmt(customer.getReceiveAmt());
+			currentRestaurant.setReceiveamt(customer.getReceiveamt());
 		}
 
-		if (customer.getPaymentAmt() > 0)
+		if (customer.getPaymentamt() > 0)
 		{
-			currentRestaurant.setPaymentAmt(customer.getPaymentAmt());
+			currentRestaurant.setPaymentamt(customer.getPaymentamt());
 		}
 
-		if (customer.getOutstandingAmt() > 0)
+		if (customer.getOutstandingamt() > 0)
 		{
-			currentRestaurant.setOutstandingAmt(customer.getOutstandingAmt());
+			currentRestaurant.setOutstandingamt(customer.getOutstandingamt());
 		}
 
 		if (customer.getPhone() != null)
@@ -137,9 +137,9 @@ public class CustomersServiceImpl implements CustomersService
 			currentRestaurant.setPhone(customer.getPhone());
 		}
 
-		if (customer.getAgentCode() != null)
+		if (customer.getAgentcode() != null)
 		{
-			currentRestaurant.setAgentCode(customer.getAgentCode());
+			currentRestaurant.setAgentcode(customer.getAgentcode());
 		}
 
 		return custRepos.save(currentRestaurant);

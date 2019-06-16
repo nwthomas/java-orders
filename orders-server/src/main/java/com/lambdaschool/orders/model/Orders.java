@@ -1,5 +1,7 @@
 package com.lambdaschool.orders.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,34 +12,36 @@ public class Orders
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderid;
 
-	private double orderAmt;
-	private double advanceAmt;
+	private double orderamt;
+	private double advanceamt;
 
 
 	// Connects to Customer and uses FK to associate
 	@ManyToOne
-	@JoinColumn(name = "customerOrders", nullable = false)
-	private Customers custCode;
+	@JoinColumn(name = "customerid", nullable = false)
+	@JsonIgnoreProperties({"customerorders", "agentcode"})
+	private Customers custcode;
 
 	// DONE
 	// Connects to Agent and uses FK to associate
 	@ManyToOne
-	@JoinColumn(name = "agentOrders", nullable = false)
-	private Agents agentCode;
+	@JoinColumn(name = "agentid", nullable = false)
+	@JsonIgnoreProperties({"customers", "agentorders"})
+	private Agents agentcode;
 
-	private String ordDescription;
+	private String orddescription;
 
 	public Orders()
 	{
 	}
 
-	public Orders(double orderAmt, double advanceAmt, Customers custCode, Agents agentCode, String ordDescription)
+	public Orders(double orderamt, double advanceamt, Customers custcode, Agents agentcode, String orddescription)
 	{
-		this.orderAmt = orderAmt;
-		this.advanceAmt = advanceAmt;
-		this.custCode = custCode;
-		this.agentCode = agentCode;
-		this.ordDescription = ordDescription;
+		this.orderamt = orderamt;
+		this.advanceamt = advanceamt;
+		this.custcode = custcode;
+		this.agentcode = agentcode;
+		this.orddescription = orddescription;
 	}
 
 	public long getOrderid()
@@ -45,53 +49,53 @@ public class Orders
 		return orderid;
 	}
 
-	public double getOrderAmt()
+	public double getOrderamt()
 	{
-		return orderAmt;
+		return orderamt;
 	}
 
-	public void setOrderAmt(double orderAmt)
+	public void setOrderamt(double orderamt)
 	{
-		this.orderAmt = orderAmt;
+		this.orderamt = orderamt;
 	}
 
-	public double getAdvanceAmt()
+	public double getAdvanceamt()
 	{
-		return advanceAmt;
+		return advanceamt;
 	}
 
-	public void setAdvanceAmt(double advanceAmt)
+	public void setAdvanceamt(double advanceamt)
 	{
-		this.advanceAmt = advanceAmt;
+		this.advanceamt = advanceamt;
 	}
 
-	public Customers getCustCode()
+	public Customers getCustcode()
 	{
-		return custCode;
+		return custcode;
 	}
 
-	public void setCustCode(Customers custCode)
+	public void setCustcode(Customers custcode)
 	{
-		this.custCode = custCode;
+		this.custcode = custcode;
 	}
 
-	public Agents getAgentCode()
+	public Agents getAgentcode()
 	{
-		return agentCode;
+		return agentcode;
 	}
 
-	public void setAgentCode(Agents agentCode)
+	public void setAgentcode(Agents agentcode)
 	{
-		this.agentCode = agentCode;
+		this.agentcode = agentcode;
 	}
 
-	public String getOrdDescription()
+	public String getOrddescription()
 	{
-		return ordDescription;
+		return orddescription;
 	}
 
-	public void setOrdDescription(String ordDescription)
+	public void setOrddescription(String orddescription)
 	{
-		this.ordDescription = ordDescription;
+		this.orddescription = orddescription;
 	}
 }
