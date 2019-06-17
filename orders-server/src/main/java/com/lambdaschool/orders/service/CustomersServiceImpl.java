@@ -82,10 +82,11 @@ public class CustomersServiceImpl implements CustomersService
 
 	@Transactional
 	@Override
-	public Customers update(Customers customer, long id)
+	public Customers update(Customers customer, long custcode)
 	{
-		Customers currentRestaurant = custRepos.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+		Customers currentRestaurant = custRepos.findById(custcode)
+				.orElseThrow(() -> new EntityNotFoundException(Long.toString(custcode)));
+		System.out.println(currentRestaurant);
 
 		if (customer.getCustname() != null)
 		{
